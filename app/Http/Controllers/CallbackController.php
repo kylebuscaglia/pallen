@@ -11,6 +11,7 @@ use App\Business\Services\TransactionsService;
 // Import our Configs
 use App\Business\Configs\CodesConfig;
 
+use Log;
 
 class CallbackController extends Controller {
 
@@ -26,10 +27,10 @@ class CallbackController extends Controller {
 		Receives the message sent, process the message and execute the desired functionality
 	*/
 	protected function processMessage(Request $request) {
-			
+
 		// Get our target iputs 
-		$from = $request->input('from');
-		$body = $request->input('body');
+		$from = $request->input('From');
+		$body = $request->input('Body');
 
 		// Log our message
 		$result = $this->_ts->createTransaction($from, $body);
