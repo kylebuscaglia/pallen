@@ -12,6 +12,22 @@ class NetworkUtility  {
 			--data-urlencode 'Body=" . $message . "' \
 			-u " . env("AUTH_TOKEN"));
 	}
+
+	public function queryGraphQL($variables) {
+		$client = \Softonic\GraphQL\ClientBuilder::build('http://ec2-34-210-75-74.us-west-2.compute.amazonaws.com/graphql');
+
+		$query = <<< QUERY
+		query GetActivity {
+			activity {
+				name
+				type
+			}
+		}
+QUERY;
+
+		$response = $client->query($query, $variables);
+		return $response;
+	}
 }
 
 ?>

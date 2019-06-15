@@ -33,6 +33,12 @@ class MessagesService  {
     	$this->_nu->sendMessageTwilio($number, $message);
     }
 
+    public function getBoredMessage() {
+        $variables = [];        
+        $result = $this->_nu->queryGraphQL($variables);
+        return $result->getdata()["activity"]["name"];
+    }
+
 	// Parses the sent message and tries to extract the desired commands
 	public function parseMessage($body) {
 		$response = new ResponseModel;

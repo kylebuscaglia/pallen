@@ -50,7 +50,7 @@ class CallbackController extends Controller {
 		else {
 			$this->_ms->sendMessage($from, $result->message);
 			// Lets lets get a response from our graphql server and send it back to our user
-			$result = "Go to movies";
+			$result = $this->_ms->getBoredMessage();
 			$this->_ms->sendMessage($from, $result);
 
 
