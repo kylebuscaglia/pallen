@@ -2,7 +2,7 @@
 
 Pallen is a [Laravel](https://laravel.com/) based web service that can parse, interpret and respond to a SMS message. 
 
-It is the proccessing unit that works in conjunction with [Jallen](https://github.com/kylebuscaglia/jallen) to form **Project Allen**, a SMS based personal assistant.
+It is the proccessing unit that works in conjunction with [Jallen](https://github.com/kylebuscaglia/jallen) to form **Allen**, a SMS based personal assistant.
 
 Pallen communicates directly with **Jallen** using an exposed GraphQL endpoint. When an incoming SMS message is received, **Pallen** interprets what to do next and what data it needs to respond. It will then query **Jallen** GraphQL datalayer for the necessary data it needs to respond back over SMS.
 
