@@ -1,5 +1,4 @@
 # pallen
-========
 
 Pallen is a Laravel based web application that can parse and interpret a SMS message from [Twilio](https://www.twilio.com/).
 
