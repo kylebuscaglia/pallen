@@ -1,7 +1,7 @@
 # pallen
-Project Allen PHP Repo
+Project Allen Laravel (PHP) Repo
 
-Pallen is the backend service required to consume a Twilio based webhook to intercept and process SMS text messages.
+Pallen is a laravel based backend service that can consume a Twilio based webhook to process an incoming SMS message and respond back.
 
 
 Step 1. Create an account on Twilio and follow the necessary steps to aquire a number.  
