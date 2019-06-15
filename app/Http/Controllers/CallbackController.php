@@ -68,7 +68,8 @@ class CallbackController extends Controller {
 
 			}
 			else if($result->code == CodesConfig::$CODE_RANDOM) {
-
+				$randomFact = $this->_ms->getRandomFact();
+				$this->_ms->sendMessage($from, $randomFact);
 			}
 		}
 		return response()->json(['status' => 'success'], 200);

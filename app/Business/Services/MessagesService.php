@@ -35,11 +35,18 @@ class MessagesService  {
 
     public function getBoredMessage() {
         $variables = [];
-        $query = '
-        query GetActivity { activity { name type } }';
+        $query = 'query GetActivity { activity { name type } }';
 
         $result = $this->_nu->queryGraphQL($query, $variables);
         $activityName = $result["activity"]["name"];
+        return $activityName;
+    }
+
+    public function getRandomFact() {
+        $variables = [];
+        $query = 'query GetFact { random { fact } }';
+        $result = $this->_nu->queryGraphQL($query, $variables);
+        $activityName = $result["random"]["fact"];
         return $activityName;
     }
 
@@ -70,9 +77,8 @@ class MessagesService  {
             return $response;
         }
         // Syntax parser for random fact
-        else if((in_array('tell', $tokens) || in_array('i\'m', $tokens)) && in_array('random', $tokens)) {
+        else if((in_array('tell', $tokens) || in_array('fact', $tokens)) && in_array('random', $tokens)) {
             $response->code = CodesConfig::$CODE_RANDOM;
-            $response->message = MessagesConfig::$LOOKUP_MESSAG_RANDOM;
             return $response;
         }
         // Syntax parser for weather
