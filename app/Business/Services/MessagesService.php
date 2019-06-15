@@ -11,6 +11,7 @@ use App\Business\Models\ResponseModel;
 
 // Configs
 use App\Business\Configs\CodesConfig;
+use App\Business\Configs\MessagesConfig;
 
 
 class MessagesService  {
@@ -33,11 +34,22 @@ class MessagesService  {
     }
 
 	// Parses the sent message and tries to extract the desired commands
-	public function parseMessage($text) {
+	public function parseMessage($body) {
 		$response = new ResponseModel;
 		$response->status = CodesConfig::$STATUS_SUCCESS;
-		
-		return $response;	
+
+        $text = strtolower($body);
+        $tokens = explode(' ', $text);
+
+        if((in_array('i', $tokens) || in_array('i\'m', $tokens)) && in_array('bored', $tokens)) {
+            $response->message = MessagesConfig::$LOOKUP_MESSAGE;
+            return $response;
+        }
+        else {
+            $response->status = CodesConfig::$STATUS_FAILURE;
+            $response->message = MessagesConfig::$SYNTAX_ERROR;
+    		return $response;
+        }	
 	}
 }
 

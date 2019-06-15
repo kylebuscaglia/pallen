@@ -32,15 +32,29 @@ class CallbackController extends Controller {
 		$from = $request->input('From');
 		$body = $request->input('Body');
 
-		// Log our message
+		// Verify that our inputs are valid.
+		if($from == null && $body == null) {
+			return response()->json(['status' => CodesConfig::$STATUS_FAILURE], 400);
+		}
+
+		// Log the message that was sent
 		$result = $this->_ts->createTransaction($from, $body);
 
 		// Parse our text input to get our command
 		$result = $this->_ms->parseMessage($body);
 
-		// Send the response back
-		$result = $this->_ms->sendMessage($from, $body);
+		// If we could not parse our message, lets send back a message
+		if($result->status == CodesConfig::$STATUS_FAILURE) {
+			$this->_ms->sendMessage($from, $result->message);
+		}
+		else {
+			$this->_ms->sendMessage($from, $result->message);
+			// Lets lets get a response from our graphql server and send it back to our user
+			$result = "Go to movies";
+			$this->_ms->sendMessage($from, $result);
 
+
+		}
 		return response()->json(['status' => 'success'], 200);
 	}
 }
