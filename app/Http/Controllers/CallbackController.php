@@ -31,14 +31,12 @@ class CallbackController extends Controller {
 		// Get our target iputs 
 		$from = $request->input('From');
 		$body = $request->input('Body');
+		$fromZip = $request->input('FromZip');
 
 		// Verify that our inputs are valid.
 		if($from == null && $body == null) {
 			return response()->json(['status' => CodesConfig::$STATUS_FAILURE], 400);
 		}
-
-		// Log the message that was sent
-		$result = $this->_ts->createTransaction($from, $body);
 
 		// Parse our text input to get our command
 		$result = $this->_ms->parseMessage($body);
@@ -47,13 +45,31 @@ class CallbackController extends Controller {
 		if($result->status == CodesConfig::$STATUS_FAILURE) {
 			$this->_ms->sendMessage($from, $result->message);
 		}
+		// We have a valid command, lets do it
 		else {
-			$this->_ms->sendMessage($from, $result->message);
-			// Lets lets get a response from our graphql server and send it back to our user
-			$result = $this->_ms->getBoredMessage();
-			$this->_ms->sendMessage($from, $result);
 
+			// Log the command in the form of a transaction.
+			$this->_ts->createTransaction($from, $body, $fromZip, $result->code);
 
+			// Process the command
+			if($result->code == CodesConfig::$CODE_GREETING) {
+				$this->_ms->sendMessage($from, $result->message);			
+			}
+			else if($result->code == CodesConfig::$CODE_BORED) {
+				$this->_ms->sendMessage($from, $result->message);
+				// Lets lets get a response from our graphql server and send it back to our user
+				$answer = $this->_ms->getBoredMessage();
+				$this->_ms->sendMessage($from, $answer);
+			}
+			else if($result->code == CodesConfig::$CODE_HUNGRY) {
+
+			}
+			else if($result->code == CodesConfig::$CODE_WEATHER) {
+
+			}
+			else if($result->code == CodesConfig::$CODE_RANDOM) {
+
+			}
 		}
 		return response()->json(['status' => 'success'], 200);
 	}

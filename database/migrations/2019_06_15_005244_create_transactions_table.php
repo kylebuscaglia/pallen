@@ -17,6 +17,8 @@ class CreateTransactionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('number', 50);
             $table->string('message', 150);
+            $table->integer('fromzip');
+            $table->integer('cat');
             $table->timestamps();
         });
     }

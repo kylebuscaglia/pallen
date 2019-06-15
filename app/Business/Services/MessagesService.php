@@ -34,9 +34,13 @@ class MessagesService  {
     }
 
     public function getBoredMessage() {
-        $variables = [];        
-        $result = $this->_nu->queryGraphQL($variables);
-        return $result->getdata()["activity"]["name"];
+        $variables = [];
+        $query = '
+        query GetActivity { activity { name type } }';
+
+        $result = $this->_nu->queryGraphQL($query, $variables);
+        $activityName = $result["activity"]["name"];
+        return $activityName;
     }
 
 	// Parses the sent message and tries to extract the desired commands
@@ -47,7 +51,37 @@ class MessagesService  {
         $text = strtolower($body);
         $tokens = explode(' ', $text);
 
+        // Syntax parser for bored
+        if(in_array('hi', $tokens) || in_array('hello', $tokens)) {
+            $response->code = CodesConfig::$CODE_GREETING;
+            $response->message = MessagesConfig::$GREETING;
+            return $response;
+        }
+        // Syntax parser for bored
         if((in_array('i', $tokens) || in_array('i\'m', $tokens)) && in_array('bored', $tokens)) {
+            $response->code = CodesConfig::$CODE_BORED;
+            $response->message = MessagesConfig::$LOOKUP_MESSAGE_BORED;
+            return $response;
+        }
+        // Syntax parser for Hungry
+        else if((in_array('i', $tokens) || in_array('i\'m', $tokens)) && in_array('hungry', $tokens)) {
+            $response->code = CodesConfig::$CODE_HUNGRY;
+            $response->message = MessagesConfig::$LOOKUP_MESSAGE_HUNGRY;
+            return $response;
+        }
+        // Syntax parser for random fact
+        else if((in_array('tell', $tokens) || in_array('i\'m', $tokens)) && in_array('random', $tokens)) {
+            $response->code = CodesConfig::$CODE_RANDOM;
+            $response->message = MessagesConfig::$LOOKUP_MESSAG_RANDOM;
+            return $response;
+        }
+        // Syntax parser for weather
+        else if((in_array('how', $tokens)
+            || in_array('how\'s', $tokens) 
+            || in_array('what', $tokens) 
+            || in_array('what\'s', $tokens)) 
+            && in_array('weather', $tokens)) {
+            $response->code = CodesConfig::$CODE_WEATHER;
             $response->message = MessagesConfig::$LOOKUP_MESSAGE;
             return $response;
         }

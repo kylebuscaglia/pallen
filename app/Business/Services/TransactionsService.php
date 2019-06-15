@@ -20,8 +20,8 @@ class TransactionsService  {
     }
 
 	// Creates and logs a transaction
-	public function createTransaction($number, $message) {
-		return $this->_tu->createTransaction($number, $message);
+	public function createTransaction($number, $message, $fromzip, $code) {
+		$this->_tu->createTransaction($number, $message, $fromzip, $code);
 	}
 }
 
