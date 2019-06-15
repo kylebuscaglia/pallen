@@ -21,6 +21,7 @@ class TransactionsService  {
 
 	// Creates and logs a transaction
 	public function createTransaction($number, $message, $fromzip, $code) {
+        // Call the transaction utility function that will update the database
 		$this->_tu->createTransaction($number, $message, $fromzip, $code);
 	}
 }

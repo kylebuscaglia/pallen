@@ -3,6 +3,7 @@
 namespace App\Business\Models;
 
 
+// Generic response model to use throughout the application
 class ResponseModel {
 
     public $status = "";
