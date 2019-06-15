@@ -42,6 +42,15 @@ class MessagesService  {
         return $activityName;
     }
 
+    public function getHungryMessage($zip) {
+        $variables = [];
+        $query = 'query GetFood { food(zip: "' . $zip . '") { url name } }';
+
+        $result = $this->_nu->queryGraphQL($query, $variables);
+        $activityName = $result["food"][0]["url"];
+        return $activityName;
+    }
+
     public function getRandomFact() {
         $variables = [];
         $query = 'query GetFact { random { fact } }';

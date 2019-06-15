@@ -62,7 +62,10 @@ class CallbackController extends Controller {
 				$this->_ms->sendMessage($from, $answer);
 			}
 			else if($result->code == CodesConfig::$CODE_HUNGRY) {
-
+				$this->_ms->sendMessage($from, $result->message);
+				// Lets lets get a response from our graphql server and send it back to our user
+				$answer = $this->_ms->getHungryMessage($fromZip);
+				$this->_ms->sendMessage($from, $answer);
 			}
 			else if($result->code == CodesConfig::$CODE_WEATHER) {
 
