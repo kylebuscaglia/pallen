@@ -8,6 +8,9 @@ Pallen communicates directly with **Jallen** using an exposed GraphQL endpoint. 
 
 Pallen also works well with [Twilio](https://www.twilio.com/). Simply configure your Twilio account to use a webhook on an incoming SMS message and utilize Pallen's callback endpoint as a processor. 
 
+Architecture Overview
+--------
+![Image of Allen-Architecture]( https://raw.githubusercontent.com/kylebuscaglia/jallen/master/Allen-Architecture.jpeg )
 
 Installation
 --------
