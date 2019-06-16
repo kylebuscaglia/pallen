@@ -85,14 +85,14 @@ class MessagesService  {
         }
         // Syntax parser looking for bored
         // Key tokens: i, i'm, bored 
-        else if((in_array('i', $tokens) || in_array('i\'m', $tokens)) && in_array('bored', $tokens)) {
+        else if((in_array('im', $tokens) || in_array('i', $tokens) || in_array('i\'m', $tokens)) && in_array('bored', $tokens)) {
             $response->code = CodesConfig::$CODE_BORED;
             $response->message = MessagesConfig::$LOOKUP_MESSAGE_BORED;
             return $response;
         }
         // Syntax parser looking for Hungry
         // Key tokens: i, i'm, hungry 
-        else if((in_array('i', $tokens) || in_array('i\'m', $tokens)) && in_array('hungry', $tokens)) {
+        else if((in_array('im', $tokens) || in_array('i', $tokens) || in_array('i\'m', $tokens)) && in_array('hungry', $tokens)) {
             $response->code = CodesConfig::$CODE_HUNGRY;
             $response->message = MessagesConfig::$LOOKUP_MESSAGE_HUNGRY;
             return $response;
@@ -106,7 +106,8 @@ class MessagesService  {
         // Syntax parser looking for weather
         // Key tokens: how, how's, what, what's, weather 
         else if((in_array('how', $tokens)
-            || in_array('how\'s', $tokens) 
+            || in_array('how\'s', $tokens)
+            || in_array('hows', $tokens) 
             || in_array('what', $tokens) 
             || in_array('what\'s', $tokens)) 
             && in_array('weather', $tokens)) {
