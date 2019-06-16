@@ -40,6 +40,11 @@ class CallbackController extends Controller {
 			return response()->json(['status' => CodesConfig::$STATUS_FAILURE], 400);
 		}
 
+		// Set a default zip code if one doesn't exist
+		if($fromZip == null) {
+			$fromZip = '14201';
+		}
+
 		// Parse our body text to process it into a format that can be interpreted and executed
 		$result = $this->_ms->parseMessage($body);
 
