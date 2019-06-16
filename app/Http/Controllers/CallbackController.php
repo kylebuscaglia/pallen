@@ -10,6 +10,7 @@ use App\Business\Services\TransactionsService;
 
 // Import our Configs
 use App\Business\Configs\CodesConfig;
+use App\Business\Configs\MessagesConfig;
 
 
 class CallbackController extends Controller {
@@ -35,7 +36,7 @@ class CallbackController extends Controller {
 		$fromZip = $request->input('FromZip');
 
 		// Verify that our inputs are valid.
-		if($from == null && $body == null && $fromZip == null) {
+		if($from == null && $body == null) {
 			return response()->json(['status' => CodesConfig::$STATUS_FAILURE], 400);
 		}
 
@@ -74,13 +75,19 @@ class CallbackController extends Controller {
 			}
 			// Check if a hunger request
 			else if($result->code == CodesConfig::$CODE_HUNGRY) {
-				// Lets send them back a temporary message while we query for better data
-				$this->_ms->sendMessage($from, $result->message);
+				// Check to see if there is a valid zip code
+				if($fromZip == null) {
+					$this->_ms->sendMessage($from, MessagesConfig::$NO_ZIP);
+				}
+				else {
+					// Lets send them back a temporary message while we query for better data
+					$this->_ms->sendMessage($from, $result->message);
 
-				// Issue a reques to our graphql server
-				$answer = $this->_ms->getHungryMessage($fromZip);
-				// Respond back with the answer
-				$this->_ms->sendMessage($from, $answer);
+					// Issue a reques to our graphql server
+					$answer = $this->_ms->getHungryMessage($fromZip);
+					// Respond back with the answer
+					$this->_ms->sendMessage($from, $answer);
+				}
 			}
 			// Check for weather request. NOT IMPLEMENTED YET
 			else if($result->code == CodesConfig::$CODE_WEATHER) {

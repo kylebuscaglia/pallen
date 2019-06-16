@@ -11,7 +11,9 @@ class TransactionsUtility  {
 		$model = new TransactionModel;
 		$model->number = $number;
 		$model->message = $message;
-		$model->fromzip = $fromzip;
+		if($fromzip != null) {
+			$model->fromzip = $fromzip;
+		}
 		$model->cat = $code;
 		$model->save();
 	}
