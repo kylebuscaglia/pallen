@@ -29,7 +29,7 @@ Installation
 `php composer.phar install`
 to install the project dependencies
 
-**Step 5.** Enable apache modrewrite  
+**Step 5.** Enable apache mod_rewrite  
 `sudo a2enmod rewrite`
 
 **Step 6.** Create a database table for the application to utilize.
@@ -51,7 +51,7 @@ to install the project dependencies
 
     AUTH_TOKEN={Twilio Auth Token}
     
-**Step 8.** Issue the command `php artisan migrate` in the project's root directory to create the necessary database schema.
+**Step 8.** Issue the command `php artisan migrate` in the project's root directory to create the necessary database tables.
 
 Pallen should now be up and running ready to use!
 
@@ -78,4 +78,4 @@ You can interact with it directly with this sample HTTP request
     From=7164454510&Body=Hi&FromZip=14216`
 
 
-Simply replace the `From` parameter value with a target phone number you'd like Allen to respond. You should see a welcome greeting from Allen. 
+Simply replace the `From` parameter value with a target phone number you'd like Allen to respond. You should see a welcome greeting from Allen come over SMS.
