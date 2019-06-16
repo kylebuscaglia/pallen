@@ -79,3 +79,17 @@ You can interact with it directly with this sample HTTP request
 
 
 Simply replace the `From` parameter value with a target phone number you'd like Allen to respond. You should see a welcome greeting from Allen come over SMS.
+
+SMS Demo
+--------
+You can use the phone number +1 (716) 239 4598 to interact directly with Allen.
+
+Send a text message containing
+        
+        Hi
+        Help me
+        I'm bored
+        I'm hungry
+        Give me a random fact
+
+and Allen will give you a reply!
