@@ -15,7 +15,7 @@ class NetworkUtility  {
 
 	// Issues a graphQL query to our target backend
 	public function queryGraphQL($query, $variables) {
-		$client = \Softonic\GraphQL\ClientBuilder::build('http://ec2-34-210-75-74.us-west-2.compute.amazonaws.com/graphql');
+		$client = \Softonic\GraphQL\ClientBuilder::build('http://jallen.bakeshow.us/graphql');
 		$response = $client->query($query, $variables)->getdata();
 		return $response;
 	}
